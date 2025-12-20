@@ -18,10 +18,9 @@ const ibmPlexMono = IBM_Plex_Mono({
 const bebasNeue = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" })
 
 export const metadata: Metadata = {
-  title: "SIGNAL — Experimental Creative Studio",
+  title: "ZELO - The Agent That Autonomy-First At All",
   description:
-    "Interface studies in controlled environments. We design systems that behave, not just screens that display.",
-  generator: "v0.app",
+    "Zelo is the agent that act, that for developers who want systems that think, so they can focus on creating.",
   icons: {
     icon: [
       {

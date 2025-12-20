@@ -7,7 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
-export function PrinciplesSection() {
+export function PhilosophiesSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const principlesRef = useRef<HTMLDivElement>(null)
@@ -16,37 +16,37 @@ export function PrinciplesSection() {
     {
       number: "01",
       titleParts: [
-        { text: "INTERFACE", highlight: true },
-        { text: " MINIMALISM", highlight: false },
+        { text: "AUTONOMY ", highlight: true },
+        { text: " AT FIRST", highlight: false },
       ],
-      description: "Reduce until only the essential remains. Every element earns its place.",
+      description: "Agents that decide and act by default, not tools that wait for instructions.",
       align: "left",
     },
     {
       number: "02",
       titleParts: [
-        { text: "SYSTEMS", highlight: true },
-        { text: " OVER SCREENS", highlight: false },
+        { text: "MONO ", highlight: true },
+        { text: " IS MORE", highlight: false },
       ],
-      description: "Design behaviors, not just layouts. Build logic that scales.",
+      description: "One coherent tool, not a constellation of loosely connected utilities.",
       align: "right",
     },
     {
       number: "03",
       titleParts: [
-        { text: "CONTROLLED ", highlight: false },
-        { text: "TENSION", highlight: true },
+        { text: "INDEPENDENT ", highlight: false },
+        { text: " WORKING", highlight: true },
       ],
-      description: "Balance between restraint and expression. Confidence without excess.",
+      description: "The agent that can make progress alone, not ones that stall without supervision.",
       align: "left",
     },
     {
       number: "04",
       titleParts: [
-        { text: "SIGNAL ", highlight: false },
-        { text: "CLARITY", highlight: true },
+        { text: "PROGRESS ", highlight: false },
+        { text: " NOT PREFECT", highlight: true },
       ],
-      description: "Communication that cuts through noise. Precision in every interaction.",
+      description: "Finish what can be finished, then refine - completion over correctness.",
       align: "right",
     },
   ]
@@ -90,11 +90,11 @@ export function PrinciplesSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="principles" className="relative py-32 pl-6 md:pl-28 pr-6 md:pr-12">
+    <section ref={sectionRef} id="philosophies" className="relative py-32 pl-6 md:pl-28 pr-6 md:pr-12">
       {/* Section header */}
       <div ref={headerRef} className="mb-24">
-        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent">03 / Principles</span>
-        <h2 className="mt-4 font-[var(--font-bebas)] text-5xl md:text-7xl tracking-tight">HOW WE WORK</h2>
+        <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent">03 / Philosophies</span>
+        <h2 className="mt-4 font-[var(--font-bebas)] text-5xl md:text-7xl tracking-tight">WAY WE THINK</h2>
       </div>
 
       {/* Staggered principles */}
