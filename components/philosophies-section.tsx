@@ -10,9 +10,9 @@ gsap.registerPlugin(ScrollTrigger)
 export function PhilosophiesSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
-  const principlesRef = useRef<HTMLDivElement>(null)
+  const philosophiesRef = useRef<HTMLDivElement>(null)
 
-  const principles = [
+  const philosophies = [
     {
       number: "01",
       titleParts: [
@@ -52,7 +52,7 @@ export function PhilosophiesSection() {
   ]
 
   useEffect(() => {
-    if (!sectionRef.current || !headerRef.current || !principlesRef.current) return
+    if (!sectionRef.current || !headerRef.current || !philosophiesRef.current) return
 
     const ctx = gsap.context(() => {
       // Header slide in
@@ -68,10 +68,10 @@ export function PhilosophiesSection() {
         },
       })
 
-      // Each principle slides in from its aligned side
-      const articles = principlesRef.current?.querySelectorAll("article")
+      // Each slides in from its aligned side
+      const articles = philosophiesRef.current?.querySelectorAll("article")
       articles?.forEach((article, index) => {
-        const isRight = principles[index].align === "right"
+        const isRight = philosophies[index].align === "right"
         gsap.from(article, {
           x: isRight ? 80 : -80,
           opacity: 0,
@@ -97,22 +97,22 @@ export function PhilosophiesSection() {
         <h2 className="mt-4 font-[var(--font-bebas)] text-5xl md:text-7xl tracking-tight">WAY WE THINK</h2>
       </div>
 
-      {/* Staggered principles */}
-      <div ref={principlesRef} className="space-y-24 md:space-y-32">
-        {principles.map((principle, index) => (
+      {/* Staggered philosophies */}
+      <div ref={philosophiesRef} className="space-y-24 md:space-y-32">
+        {philosophies.map((philosophy, index) => (
           <article
             key={index}
             className={`flex flex-col ${
-              principle.align === "right" ? "items-end text-right" : "items-start text-left"
+              philosophy.align === "right" ? "items-end text-right" : "items-start text-left"
             }`}
           >
             {/* Annotation label */}
             <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-4">
-              {principle.number} / {principle.titleParts[0].text.split(" ")[0]}
+              {philosophy.number} / {philosophy.titleParts[0].text.split(" ")[0]}
             </span>
 
             <h3 className="font-[var(--font-bebas)] text-4xl md:text-6xl lg:text-8xl tracking-tight leading-none">
-              {principle.titleParts.map((part, i) =>
+              {philosophy.titleParts.map((part, i) =>
                 part.highlight ? (
                   <HighlightText key={i} parallaxSpeed={0.6}>
                     {part.text}
@@ -125,11 +125,11 @@ export function PhilosophiesSection() {
 
             {/* Description */}
             <p className="mt-6 max-w-md font-mono text-sm text-muted-foreground leading-relaxed">
-              {principle.description}
+              {philosophy.description}
             </p>
 
             {/* Decorative line */}
-            <div className={`mt-8 h-[1px] bg-border w-24 md:w-48 ${principle.align === "right" ? "mr-0" : "ml-0"}`} />
+            <div className={`mt-8 h-[1px] bg-border w-24 md:w-48 ${philosophy.align === "right" ? "mr-0" : "ml-0"}`} />
           </article>
         ))}
       </div>
