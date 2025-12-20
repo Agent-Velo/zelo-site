@@ -7,46 +7,52 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const experiments = [
-  {
-    title: "Project Lattice",
-    medium: "Interface Study",
-    description: "Structural framework for adaptive layouts in dynamic content systems.",
-    span: "col-span-2 row-span-2",
-  },
-  {
-    title: "Signal Field",
-    medium: "Agent Orchestration",
-    description: "Autonomous coordination layer for multi-agent environments.",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    title: "Silent Agent",
-    medium: "Visual System",
-    description: "Non-intrusive interface patterns for ambient computing.",
-    span: "col-span-1 row-span-2",
-  },
-  {
-    title: "Noir Grid",
-    medium: "Typography",
-    description: "High-contrast typographic system for editorial interfaces.",
-    span: "col-span-1 row-span-1",
-  },
-  {
-    title: "Echo Chamber",
-    medium: "Audio-Visual",
-    description: "Generative soundscapes mapped to interface interactions.",
-    span: "col-span-2 row-span-1",
-  },
-  {
-    title: "Void Protocol",
-    medium: "Experimental",
-    description: "Negative space as primary interaction medium.",
-    span: "col-span-1 row-span-1",
-  },
-]
+const features = [
+    {
+        title: "Autonomy-First Core",
+        medium: "System Architecture",
+        description: "Execution is the default. Human input defines intent, not every step.",
+        span: "col-span-2 row-span-2",
+    },
+    {
+        title: "Independent Working Loop",
+        medium: "Agent Execution Model",
+        description: "Plan, act, verify, recover - progress continues without supervision.",
+        span: "col-span-1 row-span-2",
+    },
+    {
+        title: "Mono Tool System",
+        medium: "Tooling Philosophy",
+        description: "One coherent Terminal replaces fragmented scripts, plugins, and workflows.",
+        span: "col-span-1 row-span-2",
+    },
+    {
+        title: "Intent Over Instructions",
+        medium: "Interaction Model",
+        description: "Describe goals and constraints. Zelo determines the execution path.",
+        span: "col-span-2 row-span-1",
+    },
+    {
+        title: "Quiet UI",
+        medium: "Interaction Design",
+        description: "Minimal surfaces. No dashboards. Only information that changes decisions.",
+        span: "col-span-1 row-span-1",
+    },
+    {
+        title: "No Performative UI",
+        medium: "Design Constraint",
+        description: "Nothing exists to look busy. Everything exists to move work forward.",
+        span: "col-span-1 row-span-2",
+    },
+    {
+        title: "Edge of Shippable",
+        medium: "Execution Boundary",
+        description: "Operate where decisions matter most—right before code becomes real.",
+        span: "col-span-3 row-span-1",
+    },
+];
 
-export function WorkSection() {
+export function FeaturesSection() {
   const sectionRef = useRef<HTMLElement>(null)
   const headerRef = useRef<HTMLDivElement>(null)
   const gridRef = useRef<HTMLDivElement>(null)
@@ -94,15 +100,15 @@ export function WorkSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="work" className="relative py-32 pl-6 md:pl-28 pr-6 md:pr-12">
+    <section ref={sectionRef} id="features" className="relative py-32 pl-6 md:pl-28 pr-6 md:pr-12">
       {/* Section header */}
       <div ref={headerRef} className="mb-16 flex items-end justify-between">
         <div>
-          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent">02 / Experiments</span>
-          <h2 className="mt-4 font-[var(--font-bebas)] text-5xl md:text-7xl tracking-tight">SELECTED WORK</h2>
+          <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent">02 / Features</span>
+          <h2 className="mt-4 font-[var(--font-bebas)] text-5xl md:text-7xl tracking-tight">THE HIGHLIGHTS</h2>
         </div>
         <p className="hidden md:block max-w-xs font-mono text-xs text-muted-foreground text-right leading-relaxed">
-          Studies across interface design, agent systems, and visual computation.
+          What makes Zelo stands out.
         </p>
       </div>
 
@@ -111,20 +117,20 @@ export function WorkSection() {
         ref={gridRef}
         className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 auto-rows-[180px] md:auto-rows-[200px]"
       >
-        {experiments.map((experiment, index) => (
-          <WorkCard key={index} experiment={experiment} index={index} persistHover={index === 0} />
+        {features.map((feature, index) => (
+          <FeatureCard key={index} feature={feature} index={index} persistHover={index === 0} />
         ))}
       </div>
     </section>
   )
 }
 
-function WorkCard({
-  experiment,
+function FeatureCard({
+  feature,
   index,
   persistHover = false,
 }: {
-  experiment: {
+  feature: {
     title: string
     medium: string
     description: string
@@ -158,7 +164,7 @@ function WorkCard({
       ref={cardRef}
       className={cn(
         "group relative border border-border/40 p-5 flex flex-col justify-between transition-all duration-500 cursor-pointer overflow-hidden",
-        experiment.span,
+        feature.span,
         isActive && "border-accent/60",
       )}
       onMouseEnter={() => setIsHovered(true)}
@@ -175,7 +181,7 @@ function WorkCard({
       {/* Content */}
       <div className="relative z-10">
         <span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-          {experiment.medium}
+          {feature.medium}
         </span>
         <h3
           className={cn(
@@ -183,7 +189,7 @@ function WorkCard({
             isActive ? "text-accent" : "text-foreground",
           )}
         >
-          {experiment.title}
+          {feature.title}
         </h3>
       </div>
 
@@ -195,7 +201,7 @@ function WorkCard({
             isActive ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2",
           )}
         >
-          {experiment.description}
+          {feature.description}
         </p>
       </div>
 
