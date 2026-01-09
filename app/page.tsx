@@ -13,7 +13,7 @@ export default function Page() {
 
       <div className="relative z-10">
         <HeroSection />
-        <SignalsSection />
+          { /* <SignalsSection /> */}
         <FeaturesSection />
         <PhilosophiesSection />
         <ColophonSection />

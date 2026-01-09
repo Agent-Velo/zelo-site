@@ -73,15 +73,16 @@ export function ColophonSection() {
       id="colophon"
       className="relative py-32 pl-6 md:pl-28 pr-6 md:pr-12 border-t border-border/30"
     >
-      {/* Section header */}
+
+      {/* Section header \
       <div ref={headerRef} className="mb-16">
         <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent">04 / Colophon</span>
         <h2 className="mt-4 font-[var(--font-bebas)] text-5xl md:text-7xl tracking-tight">CREDITS</h2>
       </div>
 
-      {/* Multi-column layout */}
+      {/* Multi-column layout
       <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 md:gap-12">
-        {/* Design */}
+        {/* Design
         <div className="col-span-1">
           <h4 className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Design</h4>
           <ul className="space-y-2">
@@ -90,7 +91,7 @@ export function ColophonSection() {
           </ul>
         </div>
 
-        {/* Stack */}
+        {/* Stack
         <div className="col-span-1">
           <h4 className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Stack</h4>
           <ul className="space-y-2">
@@ -100,7 +101,7 @@ export function ColophonSection() {
           </ul>
         </div>
 
-        {/* Typography */}
+        {/* Typography
         <div className="col-span-1">
           <h4 className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Typography</h4>
           <ul className="space-y-2">
@@ -110,7 +111,7 @@ export function ColophonSection() {
           </ul>
         </div>
 
-        {/* Location */}
+        {/* Location
         <div className="col-span-1">
           <h4 className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Location</h4>
           <ul className="space-y-2">
@@ -119,7 +120,7 @@ export function ColophonSection() {
           </ul>
         </div>
 
-        {/* Contact */}
+        {/* Contact
         <div className="col-span-1">
           <h4 className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Contact</h4>
           <ul className="space-y-2">
@@ -142,7 +143,7 @@ export function ColophonSection() {
           </ul>
         </div>
 
-        {/* Year */}
+        {/* Year
         <div className="col-span-1">
           <h4 className="font-mono text-[9px] uppercase tracking-[0.3em] text-muted-foreground mb-4">Year</h4>
           <ul className="space-y-2">
@@ -158,7 +159,7 @@ export function ColophonSection() {
         className="mt-24 pt-8 border-t border-border/20 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
       >
         <p className="font-mono text-[10px] text-muted-foreground uppercase tracking-widest">
-          © 2025 Signal. All rights reserved.
+          © 2025 Agent Velo. All rights reserved.
         </p>
         <p className="font-mono text-[10px] text-muted-foreground">Designed with intention. Built with precision.</p>
       </div>
