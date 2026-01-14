@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react"
 import { ScrambleTextOnHover } from "@/components/scramble-text"
-import { SplitFlapText, SplitFlapMuteToggle, SplitFlapAudioProvider } from "@/components/split-flap-text"
+import { SplitFlapText } from "@/components/split-flap-text"
 import { AnimatedNoise } from "@/components/animated-noise"
 import { BitmapChevron } from "@/components/bitmap-chevron"
 import gsap from "gsap"
@@ -46,14 +46,9 @@ export function HeroSection() {
 
       {/* Main content */}
       <div ref={contentRef} className="flex-1 w-full">
-        <SplitFlapAudioProvider>
-          <div className="relative">
-            <SplitFlapText text="ZELO" speed={80} />
-            <div className="mt-4">
-              <SplitFlapMuteToggle />
-            </div>
-          </div>
-        </SplitFlapAudioProvider>
+        <div className="relative">
+          <SplitFlapText text="ZELO" speed={80} />
+        </div>
 
         <h2 className="font-[var(--font-bebas)] text-muted-foreground/60 text-[clamp(1rem,3vw,2rem)] mt-4 tracking-wide">
             An Agent Where Autonomy Comes First
