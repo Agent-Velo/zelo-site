@@ -1,5 +1,58 @@
 import { Resend } from "resend"
 
+function sleep(ms: number) {
+  return new Promise<void>((resolve) => setTimeout(resolve, ms))
+}
+
+function parseRetryAfterMs(headers: Record<string, string> | null): number | null {
+  if (!headers) return null
+
+  const retryAfter = headers["retry-after"] ?? headers["Retry-After"]
+  if (retryAfter) {
+    const seconds = Number(retryAfter)
+    if (Number.isFinite(seconds) && seconds > 0) return Math.floor(seconds * 1000)
+  }
+
+  const reset = headers["ratelimit-reset"] ?? headers["RateLimit-Reset"]
+  if (reset) {
+    const seconds = Number(reset)
+    if (Number.isFinite(seconds) && seconds > 0) return Math.floor(seconds * 1000)
+  }
+
+  return null
+}
+
+async function withResendRateLimitRetry<T extends { error: any; headers: Record<string, string> | null }>(
+  fn: () => Promise<T>,
+  {
+    maxRetries = 6,
+    baseDelayMs = 250,
+    maxDelayMs = 4000,
+  }: {
+    maxRetries?: number
+    baseDelayMs?: number
+    maxDelayMs?: number
+  } = {}
+): Promise<T> {
+  let attempt = 0
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    const res = await fn()
+    const errName = res.error?.name
+    if (errName !== "rate_limit_exceeded" || attempt >= maxRetries) {
+      return res
+    }
+
+    const exp = Math.min(maxDelayMs, baseDelayMs * 2 ** attempt)
+    const jitter = Math.floor(Math.random() * baseDelayMs)
+    const headerDelay = parseRetryAfterMs(res.headers)
+    const delay = Math.min(maxDelayMs, Math.max(exp + jitter, headerDelay ?? 0))
+
+    await sleep(delay)
+    attempt += 1
+  }
+}
+
 function formatResendError(error: { name?: string; statusCode?: number | null; message?: string }) {
   const code = error.name ? `${error.name}` : "unknown"
   const status = typeof error.statusCode === "number" ? ` (${error.statusCode})` : ""
@@ -45,13 +98,15 @@ export async function sendWaitlistConfirmEmail({
 
   const text = `Confirm your email to join the ZELO waitlist:\n\n${confirmUrl}\n\nIf you didn't request this, ignore this email.`
 
-  const { data, error } = await resend.emails.send({
-    from,
-    to: [email],
-    subject,
-    html,
-    text,
-  })
+  const { data, error } = await withResendRateLimitRetry(() =>
+    resend.emails.send({
+      from,
+      to: [email],
+      subject,
+      html,
+      text,
+    })
+  )
 
   if (error) {
     throw new Error(`Resend send error: ${formatResendError(error)}`)
@@ -75,17 +130,19 @@ export async function upsertWaitlistContact({
   if (utm?.medium) properties.medium = utm.medium
   if (utm?.campaign) properties.campaign = utm.campaign
 
-  const existing = await resend.contacts.get(email)
+  const existing = await withResendRateLimitRetry(() => resend.contacts.get(email))
 
   if (existing.error) {
     if (existing.error.name !== "not_found") {
       throw new Error(`Resend contact get error: ${formatResendError(existing.error)}`)
     }
 
-    const created = await resend.contacts.create({
-      email,
-      properties: Object.keys(properties).length ? properties : undefined,
-    })
+    const created = await withResendRateLimitRetry(() =>
+      resend.contacts.create({
+        email,
+        properties: Object.keys(properties).length ? properties : undefined,
+      })
+    )
 
     if (created.error) {
       throw new Error(`Resend contact create error: ${formatResendError(created.error)}`)
@@ -94,10 +151,12 @@ export async function upsertWaitlistContact({
     const contact = created.data
 
     if (segmentId) {
-      const added = await resend.contacts.segments.add({
-        email,
-        segmentId,
-      })
+      const added = await withResendRateLimitRetry(() =>
+        resend.contacts.segments.add({
+          email,
+          segmentId,
+        })
+      )
 
       if (added.error) {
         const msg = added.error.message?.toLowerCase() ?? ""
@@ -114,11 +173,13 @@ export async function upsertWaitlistContact({
     return contact
   }
 
-  const updated = await resend.contacts.update({
-    email,
-    properties: Object.keys(properties).length ? properties : undefined,
-    unsubscribed: false,
-  })
+  const updated = await withResendRateLimitRetry(() =>
+    resend.contacts.update({
+      email,
+      properties: Object.keys(properties).length ? properties : undefined,
+      unsubscribed: false,
+    })
+  )
 
   if (updated.error) {
     throw new Error(`Resend contact update error: ${formatResendError(updated.error)}`)
@@ -127,10 +188,12 @@ export async function upsertWaitlistContact({
   const contact = updated.data
 
   if (segmentId) {
-    const added = await resend.contacts.segments.add({
-      email,
-      segmentId,
-    })
+    const added = await withResendRateLimitRetry(() =>
+      resend.contacts.segments.add({
+        email,
+        segmentId,
+      })
+    )
 
     if (added.error) {
       const msg = added.error.message?.toLowerCase() ?? ""
