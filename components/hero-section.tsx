@@ -1,10 +1,9 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { ScrambleTextOnHover } from "@/components/scramble-text"
 import { SplitFlapText } from "@/components/split-flap-text"
 import { AnimatedNoise } from "@/components/animated-noise"
-import { BitmapChevron } from "@/components/bitmap-chevron"
+import { WaitlistJoin } from "@/components/waitlist-join"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
@@ -59,13 +58,7 @@ export function HeroSection() {
         </p>
 
         <div className="mt-16 flex items-center gap-8">
-          <a
-            href="#work"
-            className="group inline-flex items-center gap-3 border border-foreground/20 px-6 py-3 font-mono text-xs uppercase tracking-widest text-foreground hover:border-accent hover:text-accent transition-all duration-200"
-          >
-            <ScrambleTextOnHover text="Join Waitlist" as="span" duration={0.6} />
-            <BitmapChevron className="transition-transform duration-[400ms] ease-in-out group-hover:rotate-45" />
-          </a>
+          <WaitlistJoin />
             {/*
           <a
             href="#signals"
