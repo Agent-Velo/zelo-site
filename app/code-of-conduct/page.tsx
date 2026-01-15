@@ -1,23 +1,18 @@
 import type { Metadata } from "next"
-import { readFile } from "fs/promises"
-import { join } from "path"
 import ReactMarkdown from "react-markdown"
 import remarkGfm from "remark-gfm"
 import Link from "next/link"
+import { codeOfConductContent } from "./content"
+
+export const runtime = "edge"
 
 export const metadata: Metadata = {
   title: "Code of Conduct - ZELO",
   description: "Community guidelines and code of conduct for the ZELO project.",
 }
 
-async function getMarkdownContent() {
-  const filePath = join(process.cwd(), "app", "code-of-conduct", "code-of-conduct.md")
-  const content = await readFile(filePath, "utf8")
-  return content
-}
-
-export default async function CodeOfConductPage() {
-  const content = await getMarkdownContent()
+export default function CodeOfConductPage() {
+  const content = codeOfConductContent
 
   return (
     <main className="relative min-h-screen bg-background">
