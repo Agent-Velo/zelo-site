@@ -84,7 +84,7 @@ export function Footer() {
 
           {/* GitHub */}
           <a
-              href="https://github.cm/zelosh/zelo"
+              href="https://github.com/zelosh/zelo"
               className="flex items-center justify-center py-16 border-r border-border/30 hover:bg-accent/5 transition-colors duration-300 group"
           >
       <span className="font-mono text-sm tracking-wider text-foreground/80 group-hover:text-accent transition-colors duration-200">
