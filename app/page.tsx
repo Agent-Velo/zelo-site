@@ -4,6 +4,7 @@ import { FeaturesSection } from "@/components/features-section"
 import { PhilosophiesSection } from "@/components/philosophies-section"
 import { FaqSection } from "@/components/faq-section"
 import { ColophonSection } from "@/components/colophon-section"
+import { Footer } from "@/components/footer"
 import { SideNav } from "@/components/side-nav"
 
 export default function Page() {
@@ -19,6 +20,7 @@ export default function Page() {
         <PhilosophiesSection />
         <FaqSection />
         <ColophonSection />
+        <Footer />
       </div>
     </main>
   )
